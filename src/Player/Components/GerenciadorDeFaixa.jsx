@@ -1,8 +1,11 @@
-const GerenciadorDeFaixa = ({ faixa, referencia }) => {
-
-    return <audio src={faixa} ref={referencia}/>;
-
+const GerenciadorDeFaixa = ({ faixa, referencia, setTempoTotal }) => {
+    return (
+        <audio
+            src={faixa}
+            ref={referencia}
+            onLoadedMetadata={() => setTempoTotal(referencia.current.duration)}
+        />
+    );
 };
-
 
 export default GerenciadorDeFaixa;

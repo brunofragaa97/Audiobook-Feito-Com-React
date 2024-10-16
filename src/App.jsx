@@ -7,6 +7,7 @@ import SeletorDeCapitulos from "./Player/Components/SeletorDeCapitulos";
 import BotoesControle from "./Player/Components/BotoesDeControle";
 import livro from "./assets/livros/livro.js";
 import GerenciadorDeFaixa from "./Player/Components/GerenciadorDeFaixa.jsx";
+import ContainerProgresso from "./Player/Components/ContainerDeProgresso.jsx";
 
 
                             //HOOKS DE MUDANÇA DE ESTADO
@@ -14,6 +15,7 @@ function App() {
   // Estados para controle de play/pause e faixa atual
   const [tocar, setTocar] = useState(false);
   const [faixaAtual, setFaixaAtual] = useState(0);
+  const [tempoTotalFaixa, setTempoTotal] = useState(0);
   const refTagAudio = useRef(null);
 
   useEffect (() => {
@@ -59,13 +61,17 @@ function App() {
     <div className="bg-gradient-to-b from-green-700 to-black h-screen flex-col flex items-center">
       <TituloLivro nomeLivro={informacoesLivro.nomeLivro} />
       <Capa capaLivro={informacoesLivro.capaLivro} />
-      <div className="text-white pt-6">
+      <div className="text-white p-4">
         <SeletorDeCapitulos capituloAtual={faixaAtual + 1} />
       </div>
       <GerenciadorDeFaixa
         faixa={informacoesLivro.capitulo[faixaAtual]} // Faixa atual com base no array de capítulos
         referencia={refTagAudio} // Referência ao áudio
+        setTempoTotal={setTempoTotal}
       />
+      
+      <ContainerProgresso tempoTotalFaixa={tempoTotalFaixa}/>
+      
       <div className="flex text-white text-center p-8">
         <BotoesControle
           tocar={tocar}
