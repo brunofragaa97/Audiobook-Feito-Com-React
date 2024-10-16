@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Capa from "./Player/Components/Capa";
@@ -8,30 +8,38 @@ import BotoesControle from "./Player/Components/BotoesDeControle";
 import livro from "./assets/livros/livro.js";
 import GerenciadorDeFaixa from "./Player/Components/GerenciadorDeFaixa.jsx";
 
+
+                            //HOOKS DE MUDANÇA DE ESTADO
 function App() {
   // Estados para controle de play/pause e faixa atual
   const [tocar, setTocar] = useState(false);
   const [faixaAtual, setFaixaAtual] = useState(0);
   const refTagAudio = useRef(null);
 
+  useEffect (() => {
+    if(tocar){
+      playNaFaixa();
+    }
+  }, [
+    faixaAtual
+  ])
+                                      //FIM HOOKS
 
   const passarFaixa = () => {
    if(faixaAtual === 0){
     setFaixaAtual(+1);
-    pauseNaFaixa();
    }else{
     setFaixaAtual(0);
-    pauseNaFaixa();
    }
   }
   // Função para dar play
-  const playNaFaixa = () => {
+  function playNaFaixa() {
     setTocar(true);
     refTagAudio.current.play();
   };
 
   // Função para dar pause
-  const pauseNaFaixa = () => {
+  function pauseNaFaixa() {
     setTocar(false);
     refTagAudio.current.pause();
   };
