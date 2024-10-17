@@ -16,6 +16,7 @@ function App() {
   const [tocar, setTocar] = useState(false);
   const [faixaAtual, setFaixaAtual] = useState(0);
   const [tempoTotalFaixa, setTempoTotal] = useState(0);
+  const [tempoAtualFaixa, setTempoAtual] = useState(0);
   const refTagAudio = useRef(null);
 
   useEffect (() => {
@@ -68,9 +69,12 @@ function App() {
         faixa={informacoesLivro.capitulo[faixaAtual]} // Faixa atual com base no array de capítulos
         referencia={refTagAudio} // Referência ao áudio
         setTempoTotal={setTempoTotal}
+        setTempoAtual={setTempoAtual}
       />
       
-      <ContainerProgresso tempoTotalFaixa={tempoTotalFaixa}/>
+      <ContainerProgresso 
+        tempoTotalFaixa={tempoTotalFaixa} 
+        tempoAtualFaixa={tempoAtualFaixa}/>
       
       <div className="flex text-white text-center p-8">
         <BotoesControle
